@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 )
 
 type DictRequest struct {
@@ -48,7 +47,7 @@ type DictResponse struct {
 	} `json:"dictionary"`
 }
 
-func query(word string) {
+func Query1(word string) {
 	client := &http.Client{}
 	// var data = strings.NewReader(`{"trans_type":"en2zh","source":"good"}`)
 	request := DictRequest{TransType: "en2zh", Source: word}
@@ -99,14 +98,4 @@ func query(word string) {
 	for _, item := range dictResponse.Dictionary.Explanations {
 		fmt.Println(item)
 	}
-}
-
-func main() {
-	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, `usage:simpleDict WORD example: simpleDict hello
-		`)
-		os.Exit(1)
-	}
-	word := os.Args[1]
-	query(word)
 }

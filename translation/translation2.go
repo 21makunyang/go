@@ -6,16 +6,15 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 )
 
-type DictRequest struct {
+type DictRequest2 struct {
 	Q    string `json:"q"`
 	Form string `json:"form"`
 	To   string `json:"to"`
 }
-type DictResponse struct {
+type DictResponse2 struct {
 	ReturnPhrase []string `json:"returnPhrase"`
 	Query        string   `json:"query"`
 	ErrorCode    string   `json:"errorCode"`
@@ -52,7 +51,7 @@ type DictResponse struct {
 	SpeakURL string `json:"speakUrl"`
 }
 
-func query(word string) {
+func Query2(word string) {
 	client := &http.Client{}
 	var data = strings.NewReader("q=" + word + "&from=Auto&to=Auto")
 	// request := DictRequest{Q: word, Form: "Auto", To: "Auto"}
@@ -91,7 +90,7 @@ func query(word string) {
 		log.Fatal("bad StatusCode:", resp.StatusCode, "body", string(bodyText))
 	}
 	// fmt.Printf("%s\n", bodyText)
-	var dictResponse DictResponse
+	var dictResponse DictResponse2
 	err = json.Unmarshal(bodyText, &dictResponse)
 	if err != nil {
 		log.Fatal(err)
@@ -100,14 +99,4 @@ func query(word string) {
 	for _, item := range dictResponse.Basic.Explains {
 		fmt.Println(item)
 	}
-}
-
-func main() {
-	if len(os.Args) != 2 {
-		fmt.Fprintf(os.Stderr, `usage:simpleDict WORD example: simpleDict hello
-		`)
-		os.Exit(1)
-	}
-	word := os.Args[1]
-	query(word)
 }
