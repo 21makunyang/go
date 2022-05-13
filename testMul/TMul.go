@@ -1,4 +1,4 @@
-package TMul
+package testMul
 
 import (
 	"fmt"
