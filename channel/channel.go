@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	pool := make(chan chan int, 10)
+	pool := make(chan chan int, 100)
 	chi := make(chan int)
 	chi2 := make(chan int)
 	chi3 := make(chan int)
