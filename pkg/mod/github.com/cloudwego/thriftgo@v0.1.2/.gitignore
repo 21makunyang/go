@@ -1,0 +1,6 @@
+*.test
+*.out
+*.swp
+testdata
+thriftgo
+gen-*
